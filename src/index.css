@@ -1,13 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --body-bg: #eef1fa;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--body-bg);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.ant-picker > .ant-picker-input > input {
+  display: none !important;
+}
+.ant-picker {
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-color: var(--body-bg);
+}
+
+.input-class .PhoneInput {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.input-class .PhoneInputCountry {
+  padding: 0.5rem;
+  border-radius: 12px;
+  background-color: var(--body-bg);
+  box-shadow: none !important;
+  border-right: 1px solid #ccc;
+}
+
+.input-class .PhoneInputInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background-color: var(--body-bg);
 }

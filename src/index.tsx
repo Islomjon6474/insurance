@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { FormStore, FormStoreContext } from './store/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const formStore = new FormStore();
 root.render(
   <React.StrictMode>
-    <App />
+      <FormStoreContext.Provider value={formStore}>
+          <App />
+      </FormStoreContext.Provider>
   </React.StrictMode>
 );
 

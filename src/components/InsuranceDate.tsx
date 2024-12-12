@@ -1,20 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { CalendarOutlined } from "@ant-design/icons";
-import { runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
-import { FormStoreContext } from "../store/store";
 
 interface InsuranceStartDateProps {
   initialDate?: Date;
+  onChange?: (date: moment.Moment | null) => void;
 }
 
 const InsuranceDate: React.FC<InsuranceStartDateProps> = observer(
-  ({ initialDate }) => {
-    const formStore = useContext(FormStoreContext);
-    const { userData } = formStore;
-
+  ({ initialDate, onChange }) => {
     const initialMoment = initialDate ? moment(initialDate) : moment();
     const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(
       initialMoment,
@@ -32,15 +28,12 @@ const InsuranceDate: React.FC<InsuranceStartDateProps> = observer(
     const monthNames = moment.months();
 
     useEffect(() => {
-      runInAction(() => {
-        userData.startDate = selectedDate?.format("YYYY-MM-DD") || null;
-      });
-    }, [selectedDate]);
-
-    useEffect(() => {
       const date = moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
       if (date.isValid()) {
         setSelectedDate(date);
+        if (onChange && selectedDate) {
+          onChange(selectedDate);
+        }
       }
     }, [day, month, year]);
 
@@ -70,8 +63,39 @@ const InsuranceDate: React.FC<InsuranceStartDateProps> = observer(
 
     return (
       <div className="flex items-center space-x-3">
-        {/* Dropdowns for day, month, year as before */}
-
+        <select
+          className="form-select outline-none rounded-lg bg-blueBg text-grayText p-1 "
+          value={day}
+          onChange={(e) => setDay(Number(e.target.value))}
+        >
+          {days.map((d) => (
+            <option key={d} value={d}>
+              {d}
+            </option>
+          ))}
+        </select>
+        <select
+          className="form-select outline-none rounded-lg bg-blueBg text-grayText p-1 "
+          value={month - 1}
+          onChange={(e) => setMonth(Number(e.target.value))}
+        >
+          {monthNames.map((name, index) => (
+            <option key={index} value={index}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <select
+          className="form-select outline-none rounded-lg bg-blueBg text-grayText p-1"
+          value={year}
+          onChange={(e) => setYear(Number(e.target.value))}
+        >
+          {years.map((y) => (
+            <option key={y} value={y}>
+              {y}
+            </option>
+          ))}
+        </select>
         <DatePicker
           value={selectedDate}
           onChange={handleDatePickerChange}
@@ -90,4 +114,4 @@ const InsuranceDate: React.FC<InsuranceStartDateProps> = observer(
   },
 );
 
-export default InsuranceStartDate;
+export default InsuranceDate;
