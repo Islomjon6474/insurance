@@ -17,7 +17,7 @@ const App: React.FC = observer(() => {
 
   return (
     <div
-      className={`container w-screen  h-screen flex flex-col md:flex-row justify-center items-center md:items-start p-10 gap-4 `}
+      className={`container w-screen  min-h-screen flex flex-col md:flex-row justify-center items-center md:items-start p-10 gap-4 `}
     >
       <div
         className={`rounded-2xl p-5 w-fit max-w-[25rem] min-w-[20rem] bg-white shadow-card`}
